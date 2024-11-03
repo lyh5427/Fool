@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "976346870091",
+    "project_id": "fool-84401",
+    "storage_bucket": "fool-84401.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976346870091:android:65198c34dd6c2d4452b8ce",
+        "android_client_info": {
+          "package_name": "com.villains.fool"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWd0Ai8QxEgE6rsOPCoxedTSDKRbacWn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.main.home.fragment.ExchangeFragment">
+
+    <ScrollView
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
+
+                <TextView
+                    android:id="@+id/exchangeSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exchange_cal_title"
+                    style="@style/Text.SubTitle24b"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutBaseCtr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/exchangeSubTitle">
+
+                    <ImageView
+                        android:id="@+id/baseCtrImg"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@mipmap/ctr_korea"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/baseCtrName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ctr_hint"
+                        style="@style/Text.Body18b"
+                        android:textColor="@color/black40"
+                        android:layout_marginStart="6dp"
+                        app:layout_constraintStart_toEndOf="@id/baseCtrImg"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <ImageView
+                        android:id="@+id/baseCtrDown"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="4dp"
+                        android:src="@mipmap/arrow_down"
+                        app:layout_constraintStart_toEndOf="@id/baseCtrName"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/baseCtrDes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/base_ctr_des"
+                        style="@style/Text.Body18r"
+                        android:textColor="@color/black40"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintStart_toEndOf="@id/baseCtrDown"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutChangeCtr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/layoutBaseCtr">
+
+                    <ImageView
+                        android:id="@+id/changeCtrImg"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@mipmap/ctr_korea"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/changeCtrName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ctr_hint"
+                        style="@style/Text.Body18b"
+                        android:textColor="@color/black40"
+                        android:layout_marginStart="6dp"
+                        app:layout_constraintStart_toEndOf="@id/changeCtrImg"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <ImageView
+                        android:id="@+id/changeCtrDown"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="4dp"
+                        android:src="@mipmap/arrow_down"
+                        app:layout_constraintStart_toEndOf="@id/changeCtrName"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/changeCtrDes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exchange_ctr_des"
+                        style="@style/Text.Body18r"
+                        android:textColor="@color/black40"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintStart_toEndOf="@id/changeCtrDown"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutEditAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="8dp"
+                    android:background="@drawable/edit_bg"
+                    app:layout_constraintTop_toBottomOf="@id/layoutChangeCtr">
+
+                    <EditText
+                        android:id="@+id/amount_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        style="@style/Text.Body16r"
+                        android:windowSoftInputMode="stateHidden"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:lineSpacingExtra="5dp"
+                        android:inputType="number"
+                        android:hint="@string/exchage_text_hint"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutResultSum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="8dp"
+                    android:background="@drawable/edit_bg"
+                    app:layout_constraintTop_toBottomOf="@id/layoutEditAmount">
+
+                    <TextView
+                        android:id="@+id/resultSumDes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.Body14r"
+                        android:textColor="@color/black50"
+                        android:text="@string/result_sum"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/resultSum"
+                        app:layout_constraintBottom_toBottomOf="@id/resultSum"/>
+
+                    <TextView
+                        android:id="@+id/resultSum"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.SubTitle20r"
+                        android:textSize="20dp"
+                        android:gravity="end"
+                        android:textColor="@color/black50"
+                        android:text="0"
+                        android:layout_marginEnd="4dp"
+                        app:layout_constraintStart_toEndOf="@id/resultSumDes"
+                        app:layout_constraintEnd_toStartOf="@id/baseUnit"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/baseUnit"
+                        android:text=""
+                        style="@style/Text.Body14r"
+                        android:textColor="@color/black90"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/resultSum"
+                        app:layout_constraintBottom_toBottomOf="@id/resultSum"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutResultCal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingBottom="8dp"
+                    android:background="@drawable/bg_bottom_line_color_main00"
+                    app:layout_constraintTop_toBottomOf="@id/layoutResultSum">
+
+                    <TextView
+                        android:id="@+id/resultCalDes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.Body14r"
+                        android:textColor="@color/black50"
+                        android:text="@string/result_cal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/resultCal"
+                        app:layout_constraintBottom_toBottomOf="@id/resultCal"/>
+
+                    <TextView
+                        android:id="@+id/resultCal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.SubTitle20b"
+                        android:textColor="@color/main00"
+                        android:gravity="end"
+                        android:text="0"
+                        android:layout_marginEnd="4dp"
+                        app:layout_constraintStart_toEndOf="@id/resultCalDes"
+                        app:layout_constraintEnd_toStartOf="@id/exchangeUnit"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/exchangeUnit"
+                        android:text=""
+                        style="@style/Text.Body14r"
+                        android:textColor="@color/black90"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/resultCal"
+                        app:layout_constraintBottom_toBottomOf="@id/resultCal"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:background="@drawable/bg_main10_round50"
+                    app:layout_constraintTop_toBottomOf="@id/layoutResultCal">
+
+                    <TextView
+                        android:id="@+id/exchangeCtrDateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/des01"
+                        android:textColor="@color/black50"
+                        style="@style/Text.Description10r"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                    <TextView
+                        android:id="@+id/exchageCtrCode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@string/des03"
+                        android:textColor="@color/black50"
+                        style="@style/Text.Description10r"
+                        app:layout_constraintStart_toEndOf="@id/exchangeCtrDateTime"
+                        app:layout_constraintEnd_toStartOf="@id/exchageRate"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/exchageRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/des02"
+                        android:textColor="@color/black50"
+                        style="@style/Text.Body12r"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/calculator"
+        layout="@layout/calculator"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,29 +1,43 @@
 package com.villains.fool.presentation.main.home.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.hardware.input.InputManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethod
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import com.villains.fool.Application
 import com.villains.fool.R
+import com.villains.fool.Util
 import com.villains.fool.databinding.CalculatorBinding
 import com.villains.fool.databinding.FragmentExchangeBinding
 import com.villains.fool.presentation.Const
 import com.villains.fool.presentation.transparent.Transparent
 import com.villains.fool.singleClickListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.E
 
+@AndroidEntryPoint
 class ExchangeFragment : Fragment() {
 
-    lateinit var binding: FragmentExchangeBinding
+    private lateinit var binding: FragmentExchangeBinding
 
-    var hasFocus = false
+    private lateinit var firstSelector: ActivityResultLauncher<Intent>
+    private lateinit var secondSelector: ActivityResultLauncher<Intent>
+
+    private var hasFocus = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,18 +57,46 @@ class ExchangeFragment : Fragment() {
         }
 
         setListener()
+        setResultLauncher()
+
+        setBaseCountryView()
+        setChangeCountryView()
 
         return binding.root
     }
 
-    fun setListener() = with(binding) {
-        layoutBaseCtr.singleClickListener {
-            startSelector(Const.SELECTOR_TYPE_FIRST)
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    private fun setResultLauncher() {
+        firstSelector = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            setBaseCountryView()
+
+            startActivity(
+                Intent(requireContext(), Transparent::class.java)
+                    .apply {
+                        putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_SECOND)
+                    })
         }
 
-        layoutChangeCtr.singleClickListener {
-            startSelector(Const.SELECTOR_TYPE_FIRST)
+        secondSelector = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            setChangeCountryView()
+
+            binding.calculator.root.visibility = View.VISIBLE
+
+            hasFocus = true
         }
+    }
+
+    private fun setListener() = with(binding) {
+        layoutBaseCtr.singleClickListener { startSelector() }
+
+        layoutChangeCtr.singleClickListener { startSelector() }
 
 
         amountEt.singleClickListener {
@@ -92,29 +134,85 @@ class ExchangeFragment : Fragment() {
         manager.showSoftInput(amountEt, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    private fun startSelector(type: String) {
-        startActivity(
-            Intent(requireContext(), Transparent::class.java)
+    private fun startSelector() {
+        if (Application.prefs.baseCountry == "" ) {
+            firstSelector.launch(Intent(requireContext(), Transparent::class.java)
                 .apply {
-                    putExtra(Const.SELECTOR_TYPE, type)
-                }
-        )
+                    putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_FIRST)
+                })
+        } else if (Application.prefs.exchangeCountry == "") {
+            firstSelector.launch(Intent(requireContext(), Transparent::class.java)
+                .apply {
+                    putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_SECOND)
+                })
+        } else {
+            firstSelector.launch(Intent(requireContext(), Transparent::class.java)
+                .apply {
+                    putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_FIRST)
+                })
+        }
+
+
     }
 
     private fun setInputText(text: String) = with(binding) {
+        val editText = amountEt.text.toString()
+        if (editText.isNotEmpty() && (text == "+"|| text == "-")) {
+            if (editText.last().toString() == "+" || editText.last().toString() == "-") return@with
+        }
         amountEt.text = Editable.Factory.getInstance().newEditable("${amountEt.text}${text}")
+
+        if (text == "+" || text == "-") return
+
+        resultSum.text = Util.calculate(amountEt.text.toString())
+
     }
 
     private fun deleteText(isAll: Boolean) = with(binding) {
-        val text = amountEt.text
+        var text = amountEt.text
+
+        Log.d(Application.TAG, "${text.last()}")
 
         if (isAll) {
-            text.delete(0, text.length)
+            text = text.delete(0, text.length)
         } else {
-            text.delete(text.length-1, text.length)
+            text = text.delete(text.length-1, text.length)
+        }
+        if (text.isNotEmpty()) {
+            if (text.last().toString() == "+" || text.last().toString() == "-") {
+                text = text.delete(text.length-1, text.length)
+            }
         }
 
+
         amountEt.text = Editable.Factory.getInstance().newEditable(text)
+        resultSum.text = Util.calculate(text.toString())
+
+
+    }
+
+    private fun setBaseCountryView() = with(binding) {
+        val countryName = Application.prefs.baseCountry
+
+        baseCtrImg.setImageDrawable(
+            Util.countryImage(countryName, resources))
+
+        baseCtrName.text = Util.countryName(requireContext(), countryName)
+        resultSumDes.text = Util.unit(countryName, resources)
+        baseUnit.text = Util.unitString(countryName, resources)
+    }
+
+    private fun setChangeCountryView() = with(binding) {
+        val countryName = Application.prefs.exchangeCountry
+
+
+        changeCtrImg.setImageDrawable(
+            Util.countryImage(countryName, resources))
+
+        changeCtrName.text = Util.countryName(requireContext(), countryName)
+        resultCalDes.text = Util.unit(countryName, resources)
+        exchangeUnit.text = Util.unitString(countryName, resources)
+
     }
 
     companion object {

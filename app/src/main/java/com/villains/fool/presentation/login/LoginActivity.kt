@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
@@ -17,13 +19,16 @@ import com.villains.fool.Application.Companion.TAG
 import com.villains.fool.databinding.ActivityLoginBinding
 import com.villains.fool.presentation.main.MainActivity
 import com.villains.fool.singleClickListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    val model: LoginModel by viewModels()
     lateinit var googleIdTokenCredential: GoogleIdTokenCredential
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,6 +92,7 @@ class LoginActivity : AppCompatActivity() {
                                 "given Name : ${googleIdTokenCredential.givenName} \n" +
                                 "display Name : ${googleIdTokenCredential.displayName} ")
 
+//                        model.reqJoin(googleIdTokenCredential.id)
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
 
                     } catch (e: GoogleIdTokenParsingException) {

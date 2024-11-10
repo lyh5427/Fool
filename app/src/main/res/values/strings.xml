@@ -35,7 +35,7 @@
     <string name="ctr_name_vietnam">베트남</string>
     <string name="ctr_name_japan">일본</string>
 
-    <!--통화 단위-->
+    <!--통화 단위-(문자+한글 단위)-->
     <string name="unit_name_kr">₩(원)</string>
     <string name="unit_name_ast">$(호주달러)</string>
     <string name="unit_name_ch">¥(위안)</string>
@@ -45,8 +45,31 @@
     <string name="unit_name_thailand">฿(바트)</string>
     <string name="unit_name_usa">$(달러)</string>
     <string name="unit_name_vietnam">đ(동)</string>
-    <string name="unit_name_japan">円(일본)</string>
+    <string name="unit_name_japan">円(엔화)</string>
 
+    <!--통화 단위(한긓)-->
+    <string name="kore_name_unit_kr">원</string>
+    <string name="kore_name_unit_ast">호주달러</string>
+    <string name="kore_name_unit_ch">위안</string>
+    <string name="kore_name_unit_eur">유로</string>
+    <string name="kore_name_unit_singapore">달러</string>
+    <string name="kore_name_unit_taiwan">위안</string>
+    <string name="kore_name_unit_thailand">바트</string>
+    <string name="kore_name_unit_usa">달러</string>
+    <string name="kore_name_unit_vietnam">동</string>
+    <string name="kore_name_unit_japan">엔화</string>
+
+    <!--통화 단위-->
+    <string name="unit_code_kr">KRW</string>
+    <string name="unit_code_ast">AUD</string>
+    <string name="unit_code_ch">CNY</string>
+    <string name="unit_code_eur">EUR</string>
+    <string name="unit_code_singapore">SGD</string>
+    <string name="unit_code_taiwan">TPE</string>
+    <string name="unit_code_thailand">THB</string>
+    <string name="unit_code_usa"></string>
+    <string name="unit_code_vietnam">USD</string>
+    <string name="unit_code_japan">JPY</string>
 
     <string name="ctr_selector_title">통화선택</string>
     <string name="ctr_selector_title2">환전할 통화선택</string>

@@ -20,7 +20,7 @@ object RetrofitModule {
     fun providesRetrofit(okHttpClient: OkHttpClient): ApiInterface {
         val gson = GsonBuilder().setLenient().create()
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("http://192.168.1.60:8180")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()

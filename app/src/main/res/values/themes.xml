@@ -23,9 +23,9 @@
 
     <style name="AppTheme.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/main40</item>
-        <item name="colorPrimaryDark">@color/main40</item>
-        <item name="colorAccent">@color/main40</item>
+        <item name="colorPrimary">#6D73FF</item>
+        <item name="colorPrimaryDark">#6D73FF</item>
+        <item name="colorAccent">#6D73FF</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">true</item>

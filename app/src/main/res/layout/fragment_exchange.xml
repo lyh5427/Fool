@@ -316,7 +316,7 @@
     <include
         android:id="@+id/calculator"
         layout="@layout/calculator"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

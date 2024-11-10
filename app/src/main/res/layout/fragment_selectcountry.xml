@@ -146,6 +146,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutTaiwan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
@@ -196,7 +197,7 @@
                         app:layout_constraintEnd_toStartOf="@id/page3">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/layoutUS"
+                            android:id="@+id/layoutEU"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toTopOf="parent"
@@ -241,7 +242,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"
-                            app:layout_constraintTop_toBottomOf="@id/layoutUS"
+                            app:layout_constraintTop_toBottomOf="@id/layoutEU"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent">
 
@@ -280,6 +281,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutJapan"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:layout_marginTop="20dp"
@@ -370,7 +372,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/layouChina"
+                            android:id="@+id/layoutChina"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="20dp"

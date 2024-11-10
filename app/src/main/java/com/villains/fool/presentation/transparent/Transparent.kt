@@ -21,20 +21,21 @@ class Transparent : AppCompatActivity() {
         enableEdgeToEdge()
 
         binding = ActivityTransparentBinding.inflate(layoutInflater)
-
         type = intent.getStringExtra(Const.SELECTOR_TYPE).toString()
 
         var frag = when (type) {
             Const.SELECTOR_TYPE_FIRST -> {
                 SelectCountry.newInstance(
                     getString(R.string.ctr_selector_title),
-                    getString(R.string.close))
+                    getString(R.string.close),
+                    Const.SELECTOR_TYPE_FIRST)
             }
 
             else -> {
                 SelectCountry.newInstance(
                     getString(R.string.ctr_selector_title2),
-                    getString(R.string.go_back))
+                    getString(R.string.go_back),
+                    Const.SELECTOR_TYPE_SECOND)
             }
         }
 

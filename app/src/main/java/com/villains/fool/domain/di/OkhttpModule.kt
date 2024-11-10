@@ -23,9 +23,9 @@ object OkHttpModule {
     @Provides
     fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(AddCookiesInterceptor(context))
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+//            .addInterceptor(AddCookiesInterceptor(context))
+//            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
+//            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .build()

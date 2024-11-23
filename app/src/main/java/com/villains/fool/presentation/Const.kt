@@ -16,5 +16,4 @@ object Const {
     const val USA = "usa"
     const val VIETNAM = "vietnam"
     const val JAPAN = "japan"
-
 }

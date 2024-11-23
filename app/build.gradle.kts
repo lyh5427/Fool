@@ -107,4 +107,7 @@ dependencies {
     // Retrofit API
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //admob
+    implementation("com.google.android.gms:play-services-ads:23.3.0")
 }

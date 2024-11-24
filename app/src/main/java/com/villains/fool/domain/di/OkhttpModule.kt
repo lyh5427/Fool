@@ -2,6 +2,7 @@ package com.villains.fool.domain.di
 
 import android.content.Context
 import android.preference.PreferenceManager
+import com.villains.fool.Application
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,7 @@ object OkHttpModule {
     @Provides
     fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient =
         OkHttpClient.Builder()
-//            .addInterceptor(AddCookiesInterceptor(context))
+            .addInterceptor(AddCookiesInterceptor(context))
 //            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
 //            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .readTimeout(60, TimeUnit.SECONDS)
@@ -34,7 +35,7 @@ object OkHttpModule {
     @Provides
     fun provideOkHttpRequest() : Request =
         Request.Builder()
-            .url("")
+            .url("http://localhost:8180")
             .build()
 }
 
@@ -49,6 +50,8 @@ class AddCookiesInterceptor(private val context: Context) : Interceptor {
         for (cookie in preferences) {
             builder.addHeader("Cookie", cookie)
         }
+
+        builder.addHeader("Authorization", Application.prefs.accessToken)
 
         return chain.proceed(builder.build())
     }

@@ -131,4 +131,23 @@ object Util {
 
         return result.toString()
     }
+
+    fun exchange(baseCtr: String, exchangeCtr: String, inputAmount: String): String {
+        val amount = inputAmount.toDouble()
+
+        // 기준 통화 (baseCtr)의 환율을 가져옵니다.
+        val baseCtrRate: Double = Application.prefs.exchangeRate[baseCtr]!!.toDouble()
+
+        // 변환할 통화 (exchangeCtr)의 환율을 가져옵니다.
+        val exchangeCtrRate: Double = Application.prefs.exchangeRate[exchangeCtr]!!.toDouble()
+
+        // baseCtr 금액을 KRW로 변환합니다.
+        val amountInKRW = (amount * baseCtrRate)
+
+        // KRW에서 exchangeCtr로 변환합니다.
+        val convertedValue = amountInKRW / exchangeCtrRate
+
+        // 소수점 두 자리까지 포맷팅하여 반환합니다.
+        return String.format("%.5f", convertedValue)
+    }
 }

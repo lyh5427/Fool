@@ -17,3 +17,7 @@ object Const {
     const val VIETNAM = "vietnam"
     const val JAPAN = "japan"
 }
+
+object Action {
+    const val START_MAIN = "start_main"
+}

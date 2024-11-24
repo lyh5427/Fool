@@ -40,4 +40,12 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="Theme.Test" parent="Theme.MaterialComponents.Light.NoActionBar">
+        ...
+        <!-- Customize your theme here. -->
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/white</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/splash</item>
+        <item name="android:windowSplashScreenAnimationDuration" tools:targetApi="s">1000</item>
+        ...
+    </style>
 </resources>

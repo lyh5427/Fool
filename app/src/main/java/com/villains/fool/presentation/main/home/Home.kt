@@ -1,5 +1,6 @@
 package com.villains.fool.presentation.main.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import com.villains.fool.R
 import com.villains.fool.databinding.FragmentHomeBinding
 import com.villains.fool.presentation.main.home.adapter.MainFragmentAdapter
 import com.villains.fool.presentation.main.home.fragment.ExchangeFragment
+import com.villains.fool.presentation.mypage.MyPageActivity
+import com.villains.fool.singleClickListener
 
 class Home : Fragment() {
     lateinit var binding: FragmentHomeBinding
@@ -28,7 +31,7 @@ class Home : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setTabAdapter()
-
+        setListener()
         return binding.root
     }
 
@@ -51,5 +54,11 @@ class Home : Fragment() {
         }.attach()
 
         layoutTab.selectTab(layoutTab.getTabAt(0))
+    }
+
+    private fun setListener() = with(binding) {
+        myPage.singleClickListener {
+            startActivity(Intent(requireContext(), MyPageActivity::class.java))
+        }
     }
 }

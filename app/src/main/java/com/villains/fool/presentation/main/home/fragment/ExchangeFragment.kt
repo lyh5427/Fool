@@ -16,8 +16,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethod
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
 import com.villains.fool.Application
 import com.villains.fool.R
 import com.villains.fool.Util
@@ -27,6 +31,7 @@ import com.villains.fool.presentation.Const
 import com.villains.fool.presentation.transparent.Transparent
 import com.villains.fool.singleClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlin.math.E
 
 @AndroidEntryPoint
@@ -58,7 +63,7 @@ class ExchangeFragment : Fragment() {
 
         setListener()
         setResultLauncher()
-
+        setAdmobView()
         setBaseCountryView()
         setChangeCountryView()
 
@@ -77,54 +82,69 @@ class ExchangeFragment : Fragment() {
         firstSelector = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             setBaseCountryView()
 
-            startActivity(
-                Intent(requireContext(), Transparent::class.java)
-                    .apply {
-                        putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_SECOND)
-                    })
+            if (Application.prefs.exchangeCountry == "") {
+                startActivity(
+                    Intent(requireContext(), Transparent::class.java)
+                        .apply {
+                            putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_SECOND)
+                        })
+            }
         }
 
         secondSelector = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             setChangeCountryView()
 
-            binding.calculator.root.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).post {
+                binding.calculator.visibility = View.VISIBLE
+            }
 
             hasFocus = true
         }
     }
 
-    private fun setListener() = with(binding) {
-        layoutBaseCtr.singleClickListener { startSelector() }
+    private fun setAdmobView() = with(binding) {
+        admobView.adListener = object : AdListener() {
+            override fun onAdFailedToLoad(error: LoadAdError) {
 
-        layoutChangeCtr.singleClickListener { startSelector() }
+            }
+        }
+        val adRequest = AdRequest.Builder().build()
+        admobView.loadAd(adRequest)
+    }
+
+
+    private fun setListener() = with(binding) {
+        layoutBaseCtr.singleClickListener { startSelector(Const.SELECTOR_TYPE_FIRST) }
+
+        layoutChangeCtr.singleClickListener { startSelector(Const.SELECTOR_TYPE_SECOND) }
 
 
         amountEt.singleClickListener {
-            calculator.root.visibility = if (!hasFocus) {
-                hasFocus = !hasFocus
+            layoutCalculator.visibility = if (!hasFocus) {
+                hasFocus = true
                 View.VISIBLE
             } else {
-                hasFocus = !hasFocus
+                hasFocus = false
                 View.GONE
             }
         }
 
-        calculator.num1.singleClickListener { setInputText("1") }
-        calculator.num2.singleClickListener { setInputText("2") }
-        calculator.num3.singleClickListener { setInputText("3") }
-        calculator.num4.singleClickListener { setInputText("4") }
-        calculator.num5.singleClickListener { setInputText("5") }
-        calculator.num6.singleClickListener { setInputText("6") }
-        calculator.num7.singleClickListener { setInputText("7") }
-        calculator.num8.singleClickListener { setInputText("8") }
-        calculator.num9.singleClickListener { setInputText("9") }
-        calculator.num0.singleClickListener { setInputText("0") }
-        calculator.num00.singleClickListener { setInputText("00") }
-        calculator.dot.singleClickListener { setInputText(".") }
-        calculator.plus.singleClickListener { setInputText("+") }
-        calculator.minus.singleClickListener { setInputText("-") }
-        calculator.ac.singleClickListener { deleteText(true) }
-        calculator.delete.singleClickListener { deleteText(false) }
+        num1.singleClickListener { setInputText("1") }
+        num2.singleClickListener { setInputText("2") }
+        num3.singleClickListener { setInputText("3") }
+        num4.singleClickListener { setInputText("4") }
+        num5.singleClickListener { setInputText("5") }
+        num6.singleClickListener { setInputText("6") }
+        num7.singleClickListener { setInputText("7") }
+        num8.singleClickListener { setInputText("8") }
+        num9.singleClickListener { setInputText("9") }
+        num0.singleClickListener { setInputText("0") }
+        num00.singleClickListener { setInputText("00") }
+        dot.singleClickListener { setInputText(".") }
+        plus.singleClickListener { setInputText("+") }
+        minus.singleClickListener { setInputText("-") }
+        ac.singleClickListener { deleteText(true) }
+        delete.singleClickListener { deleteText(false) }
 
         amountEt.inputType = 0
 
@@ -134,7 +154,7 @@ class ExchangeFragment : Fragment() {
         manager.showSoftInput(amountEt, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    private fun startSelector() {
+    private fun startSelector(type: String) {
         if (Application.prefs.baseCountry == "" ) {
             firstSelector.launch(Intent(requireContext(), Transparent::class.java)
                 .apply {
@@ -146,26 +166,50 @@ class ExchangeFragment : Fragment() {
                     putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_SECOND)
                 })
         } else {
-            firstSelector.launch(Intent(requireContext(), Transparent::class.java)
-                .apply {
-                    putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_FIRST)
-                })
+            if (type == Const.SELECTOR_TYPE_FIRST) {
+                firstSelector.launch(Intent(requireContext(), Transparent::class.java)
+                    .apply {
+                        putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_FIRST)
+                    })
+            } else {
+                firstSelector.launch(Intent(requireContext(), Transparent::class.java)
+                    .apply {
+                        putExtra(Const.SELECTOR_TYPE, Const.SELECTOR_TYPE_SECOND)
+                    })
+            }
         }
-
-
     }
 
     private fun setInputText(text: String) = with(binding) {
-        val editText = amountEt.text.toString()
-        if (editText.isNotEmpty() && (text == "+"|| text == "-")) {
-            if (editText.last().toString() == "+" || editText.last().toString() == "-") return@with
-        }
-        amountEt.text = Editable.Factory.getInstance().newEditable("${amountEt.text}${text}")
+        var editText = amountEt.text.toString()
 
-        if (text == "+" || text == "-") return
+        if (text == "." || text ==  "-" || text ==  "+") {
+            val lastString = editText.last().toString()
+
+            if (lastString == "." || lastString ==  "-" || lastString ==  "+") {
+                return@with
+            } else {
+                amountEt.text = Editable.Factory.getInstance().newEditable("${amountEt.text}${text}")
+                return@with
+            }
+        }
+
+        val result = Util.calculate(editText+text)
+
+        if (result.toDouble() < 0) {
+            Toast.makeText(requireContext(), "-값 입니다.", Toast.LENGTH_SHORT).show()
+            return@with
+        }
+
+        amountEt.text = Editable.Factory.getInstance().newEditable("${amountEt.text}${text}")
 
         resultSum.text = Util.calculate(amountEt.text.toString())
 
+        resultCal.text = Util.exchange(
+            Application.prefs.baseCountry,
+            Application.prefs.exchangeCountry,
+            resultSum.text.toString()
+        )
     }
 
     private fun deleteText(isAll: Boolean) = with(binding) {
@@ -175,9 +219,11 @@ class ExchangeFragment : Fragment() {
 
         if (isAll) {
             text = text.delete(0, text.length)
+            resultCal.text = "0"
         } else {
             text = text.delete(text.length-1, text.length)
         }
+
         if (text.isNotEmpty()) {
             if (text.last().toString() == "+" || text.last().toString() == "-") {
                 text = text.delete(text.length-1, text.length)

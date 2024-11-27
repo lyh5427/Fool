@@ -1,11 +1,13 @@
 package com.villains.fool.presentation.login
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import com.villains.fool.Application
+import com.villains.fool.Util
 import com.villains.fool.domain.DataRepositorySource
 import com.villains.fool.domain.di.dto.remote.LoginVo
 import com.villains.fool.domain.di.dto.remote.OnResponse
@@ -34,23 +36,37 @@ class LoginModel @Inject constructor(
 
 
     // 중복 아이디 있을 시 에러메시지
-    fun reqDuplicateCheck() {
+    fun reqDuplicateCheck(context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
+
+            Application.prefs.UUID = Util.getDeviceUUID(context)
+
             val request = ReqJoinVo(
                 idToken = Application.prefs.idToken,
                 userEmail = Application.prefs.snsId,
                 snsDivCd = "google",
-                snsId = Application.prefs.snsId
+                snsId = Application.prefs.snsId,
+                devcScrtKey = Application.prefs.UUID,
+                fcmToken = Application.prefs.UUID
             )
 
-            repo.reqDuplicateCheckSNSID(Application.prefs.snsId).collect {
+            repo.reqDuplicateCheckSNSID(request).collect {
                 when (it) {
                     is Response.Success -> {
+//                        val typeToken = object : TypeToken<OnResponse<RspLoginVo>>() {}.type
+//                        val responseData = Gson().fromJson<OnResponse<RspLoginVo>>( it.response as String, typeToken)
+//
+//                        Application.prefs.accessToken = responseData.data!!.accessToken!!
+//                        Application.prefs.isLogin = true
+//
+//                        _action.emit(Action.START_MAIN)
+
                         reqJoin()
                     }
 
                     is Response.Fail -> {
 
+                        Log.d("Tag", "Response: ${it.err}")
                     }
                 }
             }
@@ -58,8 +74,18 @@ class LoginModel @Inject constructor(
     }
 
     fun reqJoin() {
+
+        val request = ReqJoinVo(
+            idToken = Application.prefs.idToken,
+            userEmail = Application.prefs.snsId,
+            snsDivCd = "google",
+            snsId = Application.prefs.snsId,
+            devcScrtKey = Application.prefs.UUID,
+            fcmToken = Application.prefs.UUID
+        )
+
         CoroutineScope(Dispatchers.IO).launch {
-            repo.reqJoin(Application.prefs.snsId).collect {
+            repo.reqJoin(request).collect {
                 when (it) {
                     is Response.Success -> {
                         reqLogin()
@@ -76,7 +102,16 @@ class LoginModel @Inject constructor(
 
     fun reqLogin() {
         CoroutineScope(Dispatchers.IO).launch {
-            repo.reqLogin(Application.prefs.snsId).collect {
+            val request = ReqJoinVo(
+                idToken = Application.prefs.idToken,
+                userEmail = Application.prefs.snsId,
+                snsDivCd = "google",
+                snsId = Application.prefs.snsId,
+                devcScrtKey = Application.prefs.UUID,
+                fcmToken = Application.prefs.UUID
+            )
+
+            repo.reqLogin(request).collect {
                 when (it) {
                     is Response.Success -> {
 

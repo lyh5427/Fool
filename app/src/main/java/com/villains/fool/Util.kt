@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.provider.Settings
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -13,6 +14,7 @@ import android.view.WindowManager
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.villains.fool.presentation.Const
+import java.util.UUID
 
 object Util {
     fun setFullScreen(activity: Activity) {
@@ -130,6 +132,11 @@ object Util {
         }
 
         return result.toString()
+    }
+
+    fun getDeviceUUID(context: Context): String {
+        val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        return UUID.nameUUIDFromBytes(androidId.toByteArray()).toString()
     }
 
     fun exchange(baseCtr: String, exchangeCtr: String, inputAmount: String): String {

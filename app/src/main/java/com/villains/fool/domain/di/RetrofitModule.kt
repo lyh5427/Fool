@@ -21,7 +21,7 @@ object RetrofitModule {
         val gson = GsonBuilder().setLenient().create()
         val retrofit: Retrofit = Retrofit.Builder()
 //            .baseUrl("http://192.168.1.60:8180")
-            .baseUrl("http://192.168.219.102:8180/")
+            .baseUrl("http://ihahn.gonetis.com:8180/")
 //            .baseUrl("http://10.0.0.2")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)

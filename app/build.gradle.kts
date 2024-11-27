@@ -24,7 +24,7 @@ android {
 
     signingConfigs {
         getByName("debug") {
-            storeFile = file("../key/debug.jks")
+            storeFile = file("../key/release.jks")
             storePassword = "sorkWkd2di!"
             keyAlias = "villain"
             keyPassword = "sorkWkd2di!"

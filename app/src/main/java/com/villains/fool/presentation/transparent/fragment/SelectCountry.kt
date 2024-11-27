@@ -103,7 +103,6 @@ class SelectCountry : Fragment() {
 
         layoutAus.singleClickListener { selectCountry(Const.AUSTRALIA) }
 
-        layoutViet.singleClickListener { selectCountry(Const.VIETNAM) }
 
         layoutUSA.singleClickListener { selectCountry(Const.USA) }
 
@@ -112,8 +111,6 @@ class SelectCountry : Fragment() {
         layoutChina.singleClickListener { selectCountry(Const.CHINA) }
 
         layoutThail.singleClickListener { selectCountry(Const.THAILAND) }
-
-        layoutTaiwan.singleClickListener { selectCountry(Const.TAIWAN) }
 
         layoutJapan.singleClickListener { selectCountry(Const.JAPAN) }
     }

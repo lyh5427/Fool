@@ -2,6 +2,8 @@ package com.villains.fool.domain
 
 import com.villains.fool.domain.di.dto.remote.JoinBody
 import com.villains.fool.domain.di.dto.remote.LoginVo
+import com.villains.fool.domain.di.dto.remote.ReqCalculateVo
+import com.villains.fool.domain.di.dto.remote.ReqJoinVo
 import com.villains.fool.domain.di.dto.remote.ReqLogin
 import com.villains.fool.domain.di.dto.remote.Test
 import okhttp3.ResponseBody
@@ -17,14 +19,14 @@ interface ApiInterface {
     suspend fun reqRestApi(@Body parameters: String): Response<ResponseBody>
 
     @POST("/auth/join")
-    suspend fun joinUser(@Body parameters: JoinBody): Response<ResponseBody>
+    suspend fun joinUser(@Body parameters: ReqJoinVo): Response<ResponseBody>
 
     @POST("/auth/duplicate-check/sns-id")
     @Headers("accept: application/json",
         "content-type: application/json"
     )
     suspend fun duplicateCheck(
-        @Body body: Test
+        @Body body: ReqJoinVo
     ): Response<ResponseBody>
 
     // 환율 정보 가져오기
@@ -38,6 +40,14 @@ interface ApiInterface {
         "content-type: application/json"
     )
     suspend fun reqLogin(
-        @Body body: ReqLogin
+        @Body body: ReqJoinVo
+    ): Response<ResponseBody>
+
+    @POST("")
+    @Headers("accept: application/json",
+        "content-type: application/json"
+    )
+    suspend fun reqSaveCalculData(
+        @Body body: ReqCalculateVo
     ): Response<ResponseBody>
 }

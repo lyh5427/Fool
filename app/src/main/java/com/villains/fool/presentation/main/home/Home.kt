@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.villains.fool.R
 import com.villains.fool.databinding.FragmentHomeBinding
 import com.villains.fool.presentation.main.home.adapter.MainFragmentAdapter
+import com.villains.fool.presentation.main.home.fragment.ExchangeDataFragment
 import com.villains.fool.presentation.main.home.fragment.ExchangeFragment
 import com.villains.fool.presentation.mypage.MyPageActivity
 import com.villains.fool.singleClickListener
@@ -17,7 +18,7 @@ import com.villains.fool.singleClickListener
 class Home : Fragment() {
     lateinit var binding: FragmentHomeBinding
     lateinit var exchanger: ExchangeFragment
-    lateinit var history: ExchangeFragment
+    lateinit var history: ExchangeDataFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,7 @@ class Home : Fragment() {
     private fun setTabAdapter() = with(binding) {
 
         exchanger = ExchangeFragment()
-        history = ExchangeFragment()
+        history = ExchangeDataFragment()
 
         val adapter = MainFragmentAdapter(this@Home).apply {
             addFragment(exchanger)

@@ -54,3 +54,9 @@ data class ReqJoinVo(
     val devcScrtKey: String = "",
     val fcmToken: String = "",
 )
+data class ReqCalculateVo(
+    val calIptVal: Double,
+    val calMemoCtt: String,
+    var toExgrId: String? = null,
+    var fromExgr: ExchangeRateVo? = null
+)

@@ -63,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java)
                             .apply {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             })
                     }
                 }
@@ -130,7 +131,7 @@ class LoginActivity : AppCompatActivity() {
                                 "familyName : ${googleIdTokenCredential.familyName} \n" +
                                 "given Name : ${googleIdTokenCredential.givenName} \n" +
                                 "display Name : ${googleIdTokenCredential.displayName} ")
-                        model.reqDuplicateCheck()
+                        model.reqDuplicateCheck(this@LoginActivity)
 
 //                        model.reqJoin(googleIdTokenCredential.id)
 //                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))

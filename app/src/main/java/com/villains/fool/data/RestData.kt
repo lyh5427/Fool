@@ -12,6 +12,7 @@ import com.villains.fool.domain.di.dto.remote.ExchangeRateVo
 import com.villains.fool.domain.di.dto.remote.JoinBody
 import com.villains.fool.domain.di.dto.remote.LoginVo
 import com.villains.fool.domain.di.dto.remote.OnResponse
+import com.villains.fool.domain.di.dto.remote.ReqJoinVo
 import com.villains.fool.domain.di.dto.remote.ReqLogin
 import com.villains.fool.domain.di.dto.remote.Response
 import com.villains.fool.domain.di.dto.remote.Test
@@ -25,8 +26,8 @@ class RestData @Inject constructor(
     private val rest: ApiInterface,
     @ApplicationContext private val context: Context,
 ) : RestDataSource {
-    override suspend fun reqDuplicateCheckSNSID(snsID: String): Response {
-        val result = rest.duplicateCheck(Test())
+    override suspend fun reqDuplicateCheckSNSID(body: ReqJoinVo): Response {
+        val result = rest.duplicateCheck(body)
         Log.d(Application.TAG, "wwwwwwwww")
 
         return if (result.isSuccessful) {
@@ -41,24 +42,22 @@ class RestData @Inject constructor(
         }
     }
 
-    override suspend fun reqJoin(snsID: String): Response {
-        val result = rest.joinUser(JoinBody(
-            snsId = snsID
-        ))
+    override suspend fun reqJoin(body: ReqJoinVo): Response {
+        val result = rest.joinUser(body)
 
         return if (result.isSuccessful) {
             val resultString = result.body()!!.string()
 
             Log.d("Tag", "${resultString}")
 
-            Response.Success("")
+            Response.Success(resultString)
         } else {
             Response.Fail("fail")
         }
     }
 
-    override suspend fun reqLogin(snsID: String): Response {
-        val result = rest.reqLogin(ReqLogin(snsId = Application.prefs.snsId))
+    override suspend fun reqLogin(body: ReqJoinVo): Response {
+        val result = rest.reqLogin(body)
 
         return if (result.isSuccessful) {
             val resultString = result.body()!!.string()

@@ -38,6 +38,10 @@ class Prefs(context: Context) {
 
     var exchangeRate: HashMap<String, Double> = HashMap()
 
+    var UUID: String
+        get() = prefs.getString("UUID", "")!!
+        set(value) = prefs.edit().putString("UUID", value).apply()
+
     val currencyToCountry: HashMap<String, String> = HashMap<String, String>()
         .apply {
             set("AU", Const.AUSTRALIA)  // 호주 달러 -> AU (Australia)
